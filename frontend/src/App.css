@@ -2,11 +2,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  max-width: fit-content;
 }
 
 .app {
-  min-height: 200vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
@@ -31,7 +30,7 @@
   grid-template-columns: 350px 1fr;
   gap: 2rem;
   padding: 2rem;
-  max-width: 5000px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -455,6 +454,219 @@
   font-weight: 600;
 }
 
+/* View Toggle */
+.view-toggle {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  justify-content: center;
+}
+
+.toggle-btn {
+  padding: 0.75rem 2rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  color: #666;
+}
+
+.toggle-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.toggle-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+/* Tableau Dashboard */
+.tableau-dashboard {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.tableau-dashboard.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.empty-message {
+  color: #666;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* Tableau Header */
+.tableau-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.tableau-header h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.tableau-subtitle {
+  color: #666;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.tableau-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 0.6rem 1.2rem;
+  background: white;
+  border: 2px solid #667eea;
+  color: #667eea;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.action-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Loading State */
+.tableau-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f0f0f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.tableau-error {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.tableau-error p {
+  color: #856404;
+  margin: 0.5rem 0;
+}
+
+.error-hint {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Tableau Viz Container */
+.tableau-viz-container {
+  width: 100%;
+  min-height: 850px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background: #f8f9fa;
+}
+
+/* Tableau Insights */
+.tableau-insights {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+.tableau-insights h3 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.insight-card {
+  background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.insight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  border-color: #667eea;
+}
+
+.insight-card.highlight {
+  background: linear-gradient(135deg, #e8f5e9 0%, #fff 100%);
+  border-color: #4caf50;
+}
+
+.insight-icon {
+  font-size: 2rem;
+}
+
+.insight-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.insight-card.highlight .insight-number {
+  color: #2e7d32;
+}
+
+.insight-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+  text-align: center;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .app-container {
@@ -468,4 +680,254 @@
   .top-three-grid {
     grid-template-columns: 1fr;
   }
+<<<<<<< Updated upstream
+
+  .tableau-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tableau-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .view-toggle {
+    flex-direction: column;
+  }
+  
+  .toggle-btn {
+    width: 100%;
+  }
+  
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-btn {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+/* View Toggle */
+.view-toggle {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  justify-content: center;
+}
+
+.toggle-btn {
+  padding: 0.75rem 2rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  color: #666;
+}
+
+.toggle-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.toggle-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+/* Analytics Dashboard */
+.analytics-dashboard {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.analytics-dashboard.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.analytics-dashboard h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.analytics-dashboard .subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* View Selector */
+.view-selector {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.view-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 120px;
+}
+
+.view-btn:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.view-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  color: white;
+}
+
+.view-icon {
+  font-size: 2rem;
+}
+
+.view-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Tableau Embed Container */
+.tableau-embed-container {
+  margin: 2rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.tableau-viz-container {
+  width: 100%;
+  min-height: 800px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Tableau Header */
+.tableau-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.tableau-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.export-btn {
+  padding: 0.75rem 1.5rem;
+  background: white;
+  border: 2px solid #667eea;
+  color: #667eea;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.export-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* Analytics Insights */
+.analytics-insights {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+.analytics-insights h3 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.insight-card {
+  background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.insight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  border-color: #667eea;
+}
+
+.insight-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.insight-label {
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 500;
+  text-align: center;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .view-selector {
+    flex-direction: column;
+  }
+  
+  .view-btn {
+    width: 100%;
+  }
+  
+  .tableau-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+>>>>>>> Stashed changes
 }

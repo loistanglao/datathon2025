@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import './App.css';
-import FilterPanel from './comp/FilterPanel';
-import Dashboard from './comp/Dashboard';
-import CollegeList from './comp/CollegeList';
+import FilterPanel from './Components/FilterPanel';
+import Dashboard from './Components/Dashboard';
+import CollegeList from './Components/CollegeList';
+import TableauFilteredDashboard from './Components/TableauFilteredDashboard';
 
 function App() {
   const [filters, setFilters] = useState({
@@ -25,6 +26,7 @@ function App() {
   const [sortBy, setSortBy] = useState('matchScore');
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
 
   const handleSearch = async () => {
     setLoading(true);
@@ -41,6 +43,7 @@ function App() {
       setResults(data);
     } catch (error) {
       console.error('Error fetching colleges:', error);
+      alert('Error connecting to server. Make sure your backend is running on port 3000.');
     } finally {
       setLoading(false);
     }
@@ -69,10 +72,34 @@ function App() {
           {results && (
             <>
               <Dashboard topThree={results.topThree} />
-              <CollegeList 
-                colleges={results.colleges} 
-                total={results.total}
-              />
+              
+              {/* Toggle between list view and analytics */}
+              <div className="view-toggle">
+                <button 
+                  className={`toggle-btn ${!showAnalytics ? 'active' : ''}`}
+                  onClick={() => setShowAnalytics(false)}
+                >
+                  📋 List View
+                </button>
+                <button 
+                  className={`toggle-btn ${showAnalytics ? 'active' : ''}`}
+                  onClick={() => setShowAnalytics(true)}
+                >
+                  📊 Analytics View
+                </button>
+              </div>
+
+              {showAnalytics ? (
+                <TableauFilteredDashboard 
+                  colleges={results.colleges}
+                  filters={filters}
+                />
+              ) : (
+                <CollegeList 
+                  colleges={results.colleges} 
+                  total={results.total}
+                />
+              )}
             </>
           )}
 
