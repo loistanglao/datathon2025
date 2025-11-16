@@ -1,34 +1,91 @@
-import { useEffect, useState } from "react";
+import { useState } from 'react';
+import './App.css';
+import FilterPanel from './comp/FilterPanel';
+import Dashboard from './comp/Dashboard';
+import CollegeList from './comp/CollegeList';
 
 function App() {
-  const [colleges, setColleges] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({
+    maxBudget: 50000,
+    minGradRate: 0,
+    demographic: 'Any',
+    statePreference: 'Any',
+    maxDebt: 50000,
+    isStudentParent: false
+  });
 
-  useEffect(() => {
-    fetch("http://localhost:5000/api/colleges")
-      .then(res => res.json())
-      .then(data => {
-        setColleges(data);
-        setLoading(false);
-      })
-      .catch(err => console.error("Fetch error:", err));
-  }, []);
+  const [weights, setWeights] = useState({
+    budget: 3,      // Strong preference
+    gradRate: 2,    // Medium preference
+    state: 1,       // Weak preference
+    debt: 3,        // Strong preference
+    childcare: 2    // Medium preference (if applicable)
+  });
 
-  if (loading) {
-    return <h2>Loading colleges...</h2>;
-  }
+  const [sortBy, setSortBy] = useState('matchScore');
+  const [results, setResults] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:3000/api/colleges/match', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ filters, weights, sortBy })
+      });
+
+      const data = await response.json();
+      setResults(data);
+    } catch (error) {
+      console.error('Error fetching colleges:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>College List</h1>
-      <ul>
-        {colleges.map((college, i) => (
-          <li key={i}>{college}</li>
-        ))}
-      </ul>
+    <div className="app">
+      <header className="app-header">
+        <h1>🎓 College Match Finder</h1>
+        <p>Find your perfect college match based on your preferences</p>
+      </header>
+
+      <div className="app-container">
+        <FilterPanel
+          filters={filters}
+          setFilters={setFilters}
+          weights={weights}
+          setWeights={setWeights}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          onSearch={handleSearch}
+          loading={loading}
+        />
+
+        <div className="results-section">
+          {results && (
+            <>
+              <Dashboard topThree={results.topThree} />
+              <CollegeList 
+                colleges={results.colleges} 
+                total={results.total}
+              />
+            </>
+          )}
+
+          {!results && (
+            <div className="empty-state">
+              <h2>Ready to find your match?</h2>
+              <p>Set your preferences on the left and click "Find Matches" to get started!</p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
 
 export default App;
-
