@@ -13,7 +13,7 @@ app.use(express.json());
 // Load college data from CSV
 let collegeData = [];
 
-fs.readFile(path.join(__dirname, 'data', 'schools.csv'), 'utf8', (err, data) => {
+fs.readFile(path.join(__dirname, 'data', 'merged_df.csv'), 'utf8', (err, data) => {
   if (err) {
     console.error('Error reading CSV:', err);
     return;
